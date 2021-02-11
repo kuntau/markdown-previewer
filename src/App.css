@@ -1,38 +1,55 @@
+:root {
+  --bg-color: #282c34;
+  --editor-bg-color: #1E2127;
+  --text-color: #F0F0F0;
+  --border-color: #cccccc20;
+  --bg-color: #FBFBFB;
+  --editor-bg-color: #F0F0F0;
+  --text-color: #282c34;
+  --border-high: #E6DB7450;
+  --nav-bg-color: #171717;
+}
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+  /* text-align: center; */
+  background-color: var(--bg-color);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding-top: 60px;
 }
 
-.App-link {
-  color: #61dafb;
+.App-header { background-color: #282c34; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: calc(10px + 2vmin); color: white; }
+
+h1 { font-size: 3em; font-weight: 800; line-height: 1em; }
+h2 { font-size: 2.5em; font-weight: 700; }
+h3 { font-size: 2em; font-weight: 600; }
+h5 { font-size: 2em; font-weight: 500; }
+
+table, th, tr, td { border: 1px dashed var(--text-color); }
+th, td { padding: 5px }
+
+p { padding: 5px 0 }
+
+ul { list-style: disc; margin: 10px 0; margin-left: 10px; }
+ul ul { list-style: circle; margin: 0; margin-left: 10px; }
+ol { list-style: decimal; margin: 10px 0; margin-left: 10px; }
+blockquote { padding-left: 20px; border-left: 2px solid var(--text-color); }
+
+#nav {
+  background-color: var(--nav-bg-color);
+  color: var(--editor-bg-color);
+  color: #f0f0f0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+textarea#editor {
+  font: normal .9rem Monaco, Menlo, monospace;
+}
+
+textarea#editor:focus {
+  outline: none;
+}
+
+#preview, #editor {
+  background-color: var(--editor-bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-left: 2px solid var(--border-high);
 }
