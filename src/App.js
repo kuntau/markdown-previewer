@@ -2,7 +2,8 @@ import './App.css';
 import m from 'marked'
 import hljs from 'highlight.js'
 // import 'highlight.js/styles/gruvbox-light.css'
-// import 'highlight.js/styles/gruvbox-dark.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFileAlt, faClone } from '@fortawesome/free-regular-svg-icons'
 import { useState, useEffect, useContext, createContext } from 'react'
 
 m.setOptions({
@@ -15,8 +16,8 @@ m.setOptions({
 });
 
 const themes = {
-  dark:  () => require('highlight.js/styles/gruvbox-dark.css'),
-  light: () => require('highlight.js/styles/gruvbox-light.css')
+  dark:  (require('highlight.js/styles/gruvbox-dark.css')),
+  light: (require('highlight.js/styles/gruvbox-light.css'))
 }
 const ThemeContext = createContext(themes.dark)
 
@@ -32,19 +33,12 @@ const App = () => {
   }, [rawMark])
 
   useEffect(() => {
-    // const test = `highlight.js/styles/gruvbox-${darkMode ? 'dark' : 'light'}.css`
-    // const test = 'highlight.js/styles/gruvbox-light.css'
-    // const test = `/atom-one-${darkMode ? 'dark' : 'light'}.css`
-    // require(`highlight.js/styles/gruvbox-${darkMode ? 'dark' : 'light'}.css`)
-    // gequire('highlight.js/styles/atom-one-dark.css')
-    darkMode ? require('highlight.js/styles/default.css') : require('highlight.js/styles/atom-one-dark.css')
-    // require(test)
     const root = document.getElementById('root')
 
     root.style.setProperty('--bg-color', darkMode ? '#282c34' : '#fbfbfb')
     root.style.setProperty('--editor-bg-color', darkMode ? '#1e2127' : '#f0f0f0')
     root.style.setProperty('--text-color', darkMode ? '#f0f0f0' : '#272c34')
-    // console.log(test);
+    console.log(themes);
   }, [darkMode])
 
   return (
@@ -63,10 +57,16 @@ const App = () => {
 const Navbar = ({ darkMode, setDarkMode }) => {
   return (
     <nav id="nav" className="absolute top-0 left-0 flex items-center justify-around w-screen h-10 px-5 shadow-md">
-      <h1 className="flex-grow text-xl">Markdown Previewer</h1>
-      <label htmlFor="darkMode">
+      <h1 className="flex-grow text-xl">
+        <FontAwesomeIcon icon={faFileAlt} className="mr-3" />
+        Markdown Previewer
+      </h1>
+      <label htmlFor="darkModeSwitch">
+        <FontAwesomeIcon icon={faClone} className="mr-3" />
         Dark Mode
         <input
+          name="darkModeSwitch"
+          id="darkModeSwitch"
           className="ml-2"
           type="checkbox"
           checked={darkMode}
@@ -79,14 +79,17 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
 const Editor = ({ rawMark, setRawMark }) => {
   return (
-    <textarea
-      id="editor"
-      className="w-full h-full p-5 font-mono"
-      name="editor"
-      value={rawMark}
-      onChange={(e) => {setRawMark(e.target.value)}}
-    >
-    </textarea>
+    <ThemeContext.Provider value={themes.light}>
+      <div className="absolute editorLabel">DTR</div>
+      <textarea
+        id="editor"
+        className="w-full h-full p-5 font-mono"
+        name="editor"
+        value={rawMark}
+        onChange={(e) => {setRawMark(e.target.value)}}
+      >
+      </textarea>
+    </ThemeContext.Provider>
   )
 }
 
