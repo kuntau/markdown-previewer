@@ -1,7 +1,7 @@
 import './App.css';
 import m from 'marked'
 import hljs from 'highlight.js'
-// import 'highlight.js/styles/gruvbox-light.css'
+import 'highlight.js/styles/gruvbox-dark.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileAlt, faClone } from '@fortawesome/free-regular-svg-icons'
 import { useState, useEffect, useContext, createContext } from 'react'
@@ -16,10 +16,10 @@ m.setOptions({
 });
 
 const themes = {
-  dark:  (require('highlight.js/styles/gruvbox-dark.css')),
-  light: (require('highlight.js/styles/gruvbox-light.css'))
+  dark:  ()=> require('highlight.js/styles/gruvbox-dark.css'),
+  light: ()=> require('highlight.js/styles/gruvbox-light.css')
 }
-const ThemeContext = createContext(themes.dark)
+// const ThemeContext = createContext(themes.dark)
 
 const App = () => {
   const [ marked, setMarked ] = useState("")
@@ -28,7 +28,7 @@ const App = () => {
 
   useEffect(() => {
     const converted = m(rawMark)
-    const preview = document.getElementById("preview")
+    // const preview = document.getElementById("preview")
     setMarked(converted)
   }, [rawMark])
 
@@ -37,8 +37,9 @@ const App = () => {
 
     root.style.setProperty('--bg-color', darkMode ? '#282c34' : '#fbfbfb')
     root.style.setProperty('--editor-bg-color', darkMode ? '#1e2127' : '#f0f0f0')
+    root.style.setProperty('--header-bg-color', darkMode ? '#1F2937' : '#F9FAFB')
     root.style.setProperty('--text-color', darkMode ? '#f0f0f0' : '#272c34')
-    console.log(themes);
+    // console.log(themes);
   }, [darkMode])
 
   return (
@@ -79,8 +80,10 @@ const Navbar = ({ darkMode, setDarkMode }) => {
 
 const Editor = ({ rawMark, setRawMark }) => {
   return (
-    <ThemeContext.Provider value={themes.light}>
-      <div className="absolute editorLabel">DTR</div>
+    <div className="relative w-full h-full">
+      <div className="absolute w-24 h-6 text-center rounded-sm shadow editorLabel inset-x-1/4 -top-3">
+        <h2 className="text-base">EDITOR</h2>
+      </div>
       <textarea
         id="editor"
         className="w-full h-full p-5 font-mono"
@@ -89,20 +92,23 @@ const Editor = ({ rawMark, setRawMark }) => {
         onChange={(e) => {setRawMark(e.target.value)}}
       >
       </textarea>
-    </ThemeContext.Provider>
+    </div>
   )
 }
 
 const Preview = ({ marked }) => {
   return (
-    <ThemeContext.Provider value={themes.dark}>
+    <div className="relative w-full h-full">
+      <div className="absolute w-24 h-6 text-center rounded-sm shadow editorLabel inset-x-1/4 -top-3">
+        <h2 className="text-base">PREVIEW</h2>
+      </div>
       <div
         id="preview"
         className="w-full h-full p-5 overflow-y-scroll"
         dangerouslySetInnerHTML={marked}
       >
+      </div>
     </div>
-    </ThemeContext.Provider>
   )
 }
 

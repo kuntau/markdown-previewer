@@ -1,13 +1,17 @@
 :root {
   --bg-color: #282c34;
   --editor-bg-color: #1E2127;
+  --header-bg-color: #1F2937;
   --text-color: #F0F0F0;
-  --border-color: #cccccc20;
+
   --bg-color: #FBFBFB;
   --editor-bg-color: #F0F0F0;
+  --header-bg-color: #F9FAFB;
   --text-color: #282c34;
+
+  --border-color: #cccccc20;
   --border-high: #E6DB7450;
-  --nav-bg-color: #171717;
+  --nav-bg-color: #111827;
 }
 .App {
   /* text-align: center; */
@@ -21,7 +25,7 @@
 h1 { font-size: 3em; font-weight: 800; line-height: 1em; }
 h2 { font-size: 2.5em; font-weight: 700; }
 h3 { font-size: 2em; font-weight: 600; }
-h5 { font-size: 2em; font-weight: 500; }
+h4 { font-size: 1.5em; font-weight: 500; }
 
 table, th, tr, td { border: 1px dashed var(--text-color); }
 th, td { padding: 5px }
@@ -41,6 +45,7 @@ blockquote { padding-left: 20px; border-left: 2px solid var(--text-color); }
 
 textarea#editor {
   font: normal .9rem Monaco, Menlo, monospace;
+  resize: none;
 }
 
 textarea#editor:focus {
@@ -52,4 +57,9 @@ textarea#editor:focus {
   color: var(--text-color);
   border: 1px solid var(--border-color);
   border-left: 2px solid var(--border-high);
+}
+
+.editorLabel {
+  background-color: var(--header-bg-color);
+  color: var(--text-color);
 }
